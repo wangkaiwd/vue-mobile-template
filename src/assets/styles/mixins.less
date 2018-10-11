@@ -1,0 +1,24 @@
+// css混合器
+
+.ell {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+// 移动端1像素处理
+.border-1px (@color) {
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid @color;
+  }
+}
+
+.border-none () {
+  &:after {display: none;}
+}
