@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 import httpServer from './serverConfig'
-import { getToken,handleErrorCode } from './tool'
+import { getToken, handleErrorCode } from './tool'
 
 const instance = axios.create({
   baseURL: httpServer.mockURL,
@@ -13,9 +13,9 @@ const requestMap = new Map();
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 instance.interceptors.request.use(
   config => {
-    const {method, data,url} = config
+    const { method, data, url } = config
     // 防重复提交: 原理：在请求还未返回内容时取消再次发起的请求
-    const keyString = qs.stringify(Object.assign({}, {url, method}, data));
+    const keyString = qs.stringify(Object.assign({}, { url, method }, data));
     if (requestMap.get(keyString)) {
       // 取消当前请求
       config.cancelToken = new CancelToken((cancel) => {
@@ -23,7 +23,7 @@ instance.interceptors.request.use(
       });
     }
     requestMap.set(keyString, true);
-    Object.assign(config, {_keyString: keyString});
+    Object.assign(config, { _keyString: keyString });
     if (method === 'post') {
       config.data = qs.stringify(data)
     }
@@ -42,10 +42,12 @@ instance.interceptors.response.use(
     if (res.status === 200) {
       return res.data
     } else {
+      // 在参数进行传递之前进行错误提示处理
       return Promise.reject(res)
     }
   },
   error => {
+    console.log('服务器异常')
     return Promise.reject(error)
   }
 )
