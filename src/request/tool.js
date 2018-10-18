@@ -4,25 +4,28 @@ import instance from './axiosConfig'
  * 提前定义接口路径，请求方法
  * @param url {String} 请求地址
  * @param method {String} 请求方式
- * @returns {Function} 返回调用接口函数
+ * @returns {Promise} 返回调用接口函数
  */
 export const ajaxFunc = (url, method = 'post') => {
-  const errorFunc = err => { 
-    //err.msg && Toast(err.msg)
-  }
   /**
    * 发起get或post请求
    * @param params {Object} 请求参数
    * @param success {Function} 成功回调
    * @param error {Function} 失败回调
    */
-  return (params, success, error = errorFunc) => {
-    let value
-    method === 'post' ? (value = params) : (value = { params })
-    instance[method.toLowerCase()](url, value).then(
-      res => success(res),
-      err => error(err)
-    )
+  return (params = {}) => {
+    return new Promise((resolve, reject) => {
+      let value
+      method.toLowerCase() === 'post' ? value = 'data' : value = 'params'
+      return instance({
+        url,
+        method,
+        [value]: params
+      }).then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
   }
 }
 /**
@@ -39,13 +42,13 @@ export const getToken = () => {
  * 对错误code进行统一处理：
  * @param code {Number} 后端返回的code
  */
-export const handleErrorCode = code => {
-  switch (code) {
-    case 10000:
-      break
-    case 10001:
-      break
-    case 10002:
-      break
-  }
+const codeMsg = {
+  '10000': 'user_token为空',
+  '10001': '登录信息过期或已失效，请登录！',
+  '10002': 'user_token不存在 || 超级会员身份失效'
+}
+export const handleErrorCode = (code, status) => {
+  Object.keys(codeMsg).map(item => {
+
+  })
 }

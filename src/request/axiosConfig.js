@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 import httpServer from './serverConfig'
-import { getToken } from './tool'
+import { getToken,handleErrorCode } from './tool'
 
 const instance = axios.create({
   baseURL: httpServer.mockURL,
@@ -36,13 +36,13 @@ instance.interceptors.request.use(
   }
 )
 instance.interceptors.response.use(
-  response => {
+  res => {
     // 请求成功后重置requestMap
     requestMap.set(res.config._keyString, false);
-    if (response.status === 200) {
-      return response.data
+    if (res.status === 200) {
+      return res.data
     } else {
-      return Promise.reject(response)
+      return Promise.reject(res)
     }
   },
   error => {

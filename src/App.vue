@@ -6,10 +6,15 @@
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   computed: {},
-  components: {}
-}
+  components: {},
+  mounted() {
+    this.$api.Element.fetchSeller().then(res => {
+      console.log(res);
+    });
+  }
+};
 </script>
 
 <style lang="less" scoped>
