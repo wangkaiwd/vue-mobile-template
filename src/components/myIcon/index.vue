@@ -7,27 +7,24 @@
 </template>
 
 <script>
-  export default {
-    name: 'BaseIcon',
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    }
+export default {
+  name: "BaseIcon",
+  props: {
+    icon: { type: String, required: true } // 传入icon对应的字符串
   }
+};
 </script>
 
 <style lang="less" scoped>
-  .base-icon {
-    display: inline-block;
+.base-icon {
+  display: inline-block;
+  vertical-align: top;
+  .icon {
+    width: 1em;
+    height: 1em;
     vertical-align: top;
-    .icon {
-      width: 1em;
-      height: 1em;
-      vertical-align: top;
-      fill: currentColor;
-      overflow: hidden;
-    }
+    fill: currentColor;
+    overflow: hidden;
   }
+}
 </style>

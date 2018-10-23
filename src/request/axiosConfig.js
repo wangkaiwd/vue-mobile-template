@@ -24,9 +24,7 @@ instance.interceptors.request.use(
     }
     requestMap.set(keyString, true);
     Object.assign(config, { _keyString: keyString });
-    if (method === 'post') {
-      config.data = qs.stringify(data)
-    }
+    if (method === 'post') { config.data = qs.stringify(data) }
     const token = getToken()
     token && (config.headers['user_token'] = token)
     return config
@@ -38,13 +36,18 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   res => {
     // 请求成功后重置requestMap
-    requestMap.set(res.config._keyString, false);
-    if (res.status === 200) {
-      return res.data
-    } else {
-      // 在参数进行传递之前进行错误提示处理
-      return Promise.reject(res)
+    requestMap.set(res.config._keyString, false)
+    const { status, data } = res
+    if (status === 200) {
+      if (data.code === 0) {
+        return data
+      }
+      // 通过code来处理错误码
+      handleErrorCode(data.code)
     }
+    console.log('request error');
+    // 在参数进行传递之前进行错误提示处理
+    return Promise.reject(res)
   },
   error => {
     console.log('服务器异常')

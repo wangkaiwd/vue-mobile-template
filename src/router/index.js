@@ -1,15 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/home/home'
-import Goods from '@/views/goods/goods'
-import Seller from '@/views/seller/seller'
-import Ratings from '@/views/ratings/ratings'
-import Demo from '@/views/demo'
-
+const Home = () => import('pages/home')
+const Mine = () => import('pages/mine')
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    
+    { path: '/', exact: true, name: 'home', component: Home },
+    { path: '/mine', name: 'mine', component: Mine }
   ]
 })

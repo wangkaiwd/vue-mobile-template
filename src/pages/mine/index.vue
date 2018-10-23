@@ -1,17 +1,15 @@
 <template>
-  <div class="my-toast">
-
+  <div class="mine">
+    我的
+    <router-link to='/'>home</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MyToast",
-  props: {}
+  name: "VMine"
 };
 </script>
 
 <style lang="less" scoped>
-.my-toast {
-}
 </style>

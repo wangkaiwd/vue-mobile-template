@@ -14,6 +14,7 @@ export const ajaxFunc = (url, method = 'post') => {
    * @param error {Function} 失败回调
    */
   return (params = {}) => {
+    // 返回promise实例，方便通过async和await使异步代码变为同步
     return new Promise((resolve, reject) => {
       let value
       method.toLowerCase() === 'post' ? value = 'data' : value = 'params'
@@ -38,17 +39,16 @@ export const getToken = () => {
   userInfo && (token = JSON.parse(userInfo).user_token)
   return token
 }
-/**
- * 对错误code进行统一处理：
- * @param code {Number} 后端返回的code
- */
+// 错误码配置项
 const codeMsg = {
   '10000': 'user_token为空',
   '10001': '登录信息过期或已失效，请登录！',
   '10002': 'user_token不存在 || 超级会员身份失效'
 }
-export const handleErrorCode = (code, status) => {
-  Object.keys(codeMsg).map(item => {
-
-  })
+/**
+ * 对错误code进行统一处理：
+ * @param code {Number} 后端返回的code
+ */
+export const handleErrorCode = (code) => {
+  codeMsg[code] && alert(codeMsg[code]);
 }
