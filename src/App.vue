@@ -1,5 +1,6 @@
 <template>
   <div class="index" v-cloak>
+    <button @click="handleClick">click</button>
     <router-view></router-view>
   </div>
 </template>
@@ -13,6 +14,13 @@ export default {
     this.$api.Element.fetchSeller().then(res => {
       console.log(res);
     });
+  },
+  methods: {
+    handleClick() {
+      this.$api.Element.fetchSeller().then(res => {
+        console.log(res);
+      });
+    }
   }
 };
 </script>

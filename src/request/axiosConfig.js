@@ -1,35 +1,29 @@
 import axios from 'axios'
 import qs from 'qs'
 
-import httpServer from './serverConfig'
-import { getToken, handleErrorCode } from './tool'
-
+import serverConfig from './serverConfig'
+import { getToken, handleErrorCode, delRepeatHttpRequest } from './tool'
+const { localURL, baseURL, mockURL } = serverConfig
 const instance = axios.create({
-  baseURL: httpServer.mockURL,
+  // 根据开发和使用习惯
+  baseURL: localURL || baseURL || mockURL,
   timeout: 20000
 })
-const CancelToken = instance.CancelToken;
+const CancelToken = axios.CancelToken;
 const requestMap = new Map();
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 instance.interceptors.request.use(
   config => {
-    const { method, data, url } = config
+    const { method, data } = config
     // 防重复提交: 原理：在请求还未返回内容时取消再次发起的请求
-    const keyString = qs.stringify(Object.assign({}, { url, method }, data));
-    if (requestMap.get(keyString)) {
-      // 取消当前请求
-      config.cancelToken = new CancelToken((cancel) => {
-        cancel('Please slow down a little');
-      });
-    }
-    requestMap.set(keyString, true);
-    Object.assign(config, { _keyString: keyString });
+    delRepeatHttpRequest(requestMap, config, qs, CancelToken)
     if (method === 'post') { config.data = qs.stringify(data) }
     const token = getToken()
     token && (config.headers['user_token'] = token)
     return config
   },
   error => {
+    console.log('请求失败')
     return Promise.reject(error)
   }
 )
@@ -39,19 +33,16 @@ instance.interceptors.response.use(
     requestMap.set(res.config._keyString, false)
     const { status, data } = res
     if (status === 200) {
-      // if (data.code === 0) {
-      //   return data
-      // }
+      // 通过code来处理错误码 
+      if (data.code !== 0) handleErrorCode(data.code)
       return data
-      // 通过code来处理错误码
-      handleErrorCode(data.code)
     }
     console.log('request error');
     // 在参数进行传递之前进行错误提示处理
     return Promise.reject(res)
   },
   error => {
-    console.log('服务器异常')
+    console.log(error)
     return Promise.reject(error)
   }
 )

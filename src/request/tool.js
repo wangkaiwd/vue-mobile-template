@@ -52,3 +52,24 @@ const codeMsg = {
 export const handleErrorCode = (code) => {
   codeMsg[code] && alert(codeMsg[code]);
 }
+
+/**
+ * 删除重复请求：确保前一次的请求发送之后才能再此次发起请求
+ * @param {Map} requestMap 区分唯一请求的Map对象键值保存对
+ * @param {Object} config 请求配置项
+ * @param {Object} qs 将嵌套对象转换为query的工具
+ * @param {Function} CancelToken 取消请求实例
+ */
+export const delRepeatHttpRequest = (requestMap, config, qs, CancelToken) => {
+  const { url, method, data } = config
+  const keyString = qs.stringify(Object.assign({}, { url, method }, data));
+  console.log('map', requestMap.get(keyString))
+  if (requestMap.get(keyString)) {
+    // 取消当前请求
+    config.cancelToken = new CancelToken((cancel) => {
+      cancel('Please slow down a little');
+    });
+  }
+  requestMap.set(keyString, true);
+  Object.assign(config, { _keyString: keyString });
+}
