@@ -18,20 +18,15 @@ export const ajaxFunc = (url, method = 'post') => {
     return new Promise((resolve, reject) => {
       let value
       method.toLowerCase() === 'post' ? value = 'data' : value = 'params'
-      return instance({
-        url,
-        method,
-        [value]: params
-      }).then(
-        res => resolve(res),
-        err => reject(err)
-      )
+      return instance({ url, method, [value]: params })
+        .then(res => resolve(res), err => reject(err))
     })
   }
 }
 /**
  * 判断本地存储中的token是否存在，从而在请求头中携带
  * @returns {string} [返回localStorage中的token,或者返回'']
+ * @todo: 要结合vuex在全局进行用户信息的处理和更新
  */
 export const getToken = () => {
   var userInfo = localStorage.getItem('user') || ''
