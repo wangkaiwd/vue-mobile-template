@@ -39,9 +39,10 @@ instance.interceptors.response.use(
     requestMap.set(res.config._keyString, false)
     const { status, data } = res
     if (status === 200) {
-      if (data.code === 0) {
-        return data
-      }
+      // if (data.code === 0) {
+      //   return data
+      // }
+      return data
       // 通过code来处理错误码
       handleErrorCode(data.code)
     }

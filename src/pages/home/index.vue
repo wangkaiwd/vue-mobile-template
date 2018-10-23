@@ -8,6 +8,7 @@
 </template>
 
 <script>
+console.log("home");
 export default {
   name: "VHome"
 };
