@@ -11,11 +11,11 @@ export default {
   computed: {},
   components: {},
   mounted() {
-    this.$api.Element.fetchSeller().then(res => console.log(res));
+    this.$api.element.fetchSeller().then(res => console.log(res));
   },
   methods: {
     handleClick() {
-      this.$api.Element.fetchSeller().then(res => {
+      this.$api.element.fetchSeller().then(res => {
         console.log(res);
       });
     }

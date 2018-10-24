@@ -1,5 +1,5 @@
-import Element from './element'
+import element from './element'
 
 export default {
-  Element,
+  element,
 }

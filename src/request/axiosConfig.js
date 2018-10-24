@@ -22,7 +22,7 @@ instance.interceptors.request.use(
     return config
   },
   error => {
-    console.log('请求失败')
+    console.warn('request error')
     return Promise.reject(error)
   }
 )
@@ -36,12 +36,12 @@ instance.interceptors.response.use(
       if (data.code !== 0) handleErrorCode(data.code)
       return data
     }
-    console.log('request error');
+    console.warn('response status error');
     // 在参数进行传递之前进行错误提示处理
     return Promise.reject(res)
   },
   error => {
-    console.log('response error')
+    console.warn('response error')
     return Promise.reject(error)
   }
 )
