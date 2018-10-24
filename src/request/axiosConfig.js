@@ -1,6 +1,5 @@
 import axios from 'axios'
 import qs from 'qs'
-
 import serverConfig from './serverConfig'
 import { getToken, handleErrorCode, delRepeatHttpRequest } from './tool'
 const { localURL, baseURL, mockURL } = serverConfig

@@ -7,13 +7,10 @@ import '@/utils/rem.js'
 import '@/request/axiosConfig'
 import Api from '@/api'
 import BaseIcon from '@/components/myIcon'
-
-window.addEventListener('unhandledrejection', e => {
-  console.log(e.reason);
-})
+import { handlePromiseReject } from '@/utils/rem.js'
 
 Vue.component('base-icon', BaseIcon)
-
+handlePromiseReject()
 Vue.prototype.$api = Api
 
 Vue.config.productionTip = false
