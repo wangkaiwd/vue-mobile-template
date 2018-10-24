@@ -11,9 +11,7 @@ export default {
   computed: {},
   components: {},
   mounted() {
-    this.$api.Element.fetchSeller().then(res => {
-      console.log(res);
-    });
+    this.$api.Element.fetchSeller().then(res => console.log(res));
   },
   methods: {
     handleClick() {

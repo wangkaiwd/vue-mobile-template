@@ -5,6 +5,8 @@
 // 全局处理promise reject中没有捕获的内容
 export const handlePromiseReject = () => {
   window.addEventListener('unhandledrejection', e => {
-    console.log(e)
+    if (e.message && e.message.type === 'cancelHttp') {
+      console.log(e.message.msg)
+    }
   })
 }

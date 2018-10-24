@@ -41,7 +41,7 @@ instance.interceptors.response.use(
     return Promise.reject(res)
   },
   error => {
-    console.log(error)
+    console.log('response error')
     return Promise.reject(error)
   }
 )

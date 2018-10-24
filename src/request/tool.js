@@ -58,11 +58,10 @@ export const handleErrorCode = (code) => {
 export const delRepeatHttpRequest = (requestMap, config, qs, CancelToken) => {
   const { url, method, data } = config
   const keyString = qs.stringify(Object.assign({}, { url, method }, data));
-  console.log('map', requestMap.get(keyString))
   if (requestMap.get(keyString)) {
     // 取消当前请求
     config.cancelToken = new CancelToken((cancel) => {
-      cancel('Please slow down a little');
+      cancel({ type: 'cancelHttp', msg: 'Please slow down a little' });
     });
   }
   requestMap.set(keyString, true);

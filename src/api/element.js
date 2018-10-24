@@ -5,3 +5,9 @@ class Element {
   static fetchRatings = ajaxFunc('/ratings')
 }
 export default Element
+
+const element = {
+  fetchGoods: ajaxFunc('/seller'),
+  fetchGoods: ajaxFunc('/goods'),
+  fetchRatings: ajaxFunc('/ratings')
+}

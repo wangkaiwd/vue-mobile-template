@@ -7,7 +7,7 @@ import '@/utils/rem.js'
 import '@/request/axiosConfig'
 import Api from '@/api'
 import BaseIcon from '@/components/myIcon'
-import { handlePromiseReject } from '@/utils/rem.js'
+import { handlePromiseReject } from '@/utils/globalEvent'
 
 Vue.component('base-icon', BaseIcon)
 handlePromiseReject()
