@@ -7,6 +7,7 @@ export const handlePromiseReject = () => {
   window.addEventListener('unhandledrejection', e => {
     if (e.message && e.message.type === 'cancelHttp') {
       console.log(e.message.msg)
+      e.preventDefault()
     }
   })
 }

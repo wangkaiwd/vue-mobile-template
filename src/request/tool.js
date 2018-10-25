@@ -6,23 +6,13 @@ import instance from './axiosConfig'
  * @param method {String} 请求方式
  * @returns {Promise} 返回调用接口函数
  */
-export const ajaxFunc = (url, method = 'post') => {
-  /**
-   * 发起get或post请求
-   * @param params {Object} 请求参数
-   * @param success {Function} 成功回调
-   * @param error {Function} 失败回调
-   */
-  return (params = {}) => {
-    // 返回promise实例，方便通过async和await使异步代码变为同步
-    return new Promise((resolve, reject) => {
-      let value
-      method.toLowerCase() === 'post' ? value = 'data' : value = 'params'
-      return instance({ url, method, [value]: params })
-        .then(res => resolve(res), err => reject(err))
-    })
-  }
-}
+// 返回promise实例，方便通过async和await使异步代码变为同步
+export const ajaxFunc = (url, method = 'post') => (params = {}) => new Promise((resolve, reject) => {
+  let value
+  method.toLowerCase() === 'post' ? value = 'data' : value = 'params'
+  return instance({ url, method, [value]: params })
+    .then(res => resolve(res), err => reject(err))
+})
 /**
  * 判断本地存储中的token是否存在，从而在请求头中携带
  * @returns {string} [返回localStorage中的token,或者返回'']
