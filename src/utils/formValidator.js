@@ -14,15 +14,12 @@ class FormValidator {
     this.cache.push(errorMsg)
   }
   start() {
-    for (let i = 0; i < this.cache.length; i++) {
+    for (let i = 0, len = this.cache.length; i < len; i++) {
       let errorMsg = this.cache[i]
-      if (errorMsg) {
-        return errorMsg
-      }
+      if (errorMsg) return errorMsg
     }
   }
 }
-
 
 const validatorRules = {
   // 内容是否为空
@@ -33,7 +30,7 @@ const validatorRules = {
     return regExpConfig.mobile.test(value) ? errorMsg : void 0
   },
   minLength(value, errorMsg, length) {
-    return value.length > length ? errorMsg : void 0
+    return value.length < length ? errorMsg : void 0
   }
 }
 export default FormValidator
