@@ -31,7 +31,7 @@ export default {
 		validatorFunc() {
 			const validator = new FormValidator()
 			validator.add(this.userName, ['isNonEmpty', 'minLength:6'], '用户名')
-			validator.add(this.password, { rule: 'isNonEmpty' }, '密码')
+			validator.add(this.password, 'isNonEmpty', '密码')
 			validator.add(
 				this.checkCode,
 				[{ rule: 'isNonEmpty' }, { rule: 'maxLength:6' }],
