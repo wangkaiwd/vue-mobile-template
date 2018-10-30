@@ -35,3 +35,6 @@ export default {
 // 2. 如何实现：
 //      a. 在构造函数原型上绑定$message方法：Vue.prototype.$message = function() {}
 //      b. 通过install方法进行方法定义,使用Vue.use()来使用插进
+// 3. props传递：通过在调用实例的$message(params)进行参数传递
+// 4. 之后通过重新创建Vue实例，通过propsData进行组件props参数的传递，将实例根节点放入到body中。
+// 5. 之后在元素消失的时候的动画实现是通过setTimeout实现的，可能有一些问题
