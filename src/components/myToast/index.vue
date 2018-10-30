@@ -15,47 +15,52 @@
 export default {
 	name: 'MyToast',
 	props: {
-		message: { //提示信息
+		message: {
+			//提示信息
 			type: String,
 			required: true
 		},
-		autoClose: { // 是否自动关闭
+		autoClose: {
+			// 是否自动关闭
 			type: Boolean,
 			default: true
 		},
-		closeDelay: { // 自动关闭延时
+		closeDelay: {
+			// 自动关闭延时
 			type: String | Number,
 			default: 2
 		},
-		closeButton: { // 关闭按钮
+		closeButton: {
+			// 关闭按钮
 			type: Object,
 			required: false
 		},
-    position: { // 提示位置
-      type: String,
-      default: 'top',
-      validator(val) {
-        return ['top', 'middle', 'bottom'].includes(val)
-      }
-    }
+		position: {
+			// 提示位置
+			type: String,
+			default: 'top',
+			validator(val) {
+				return ['top', 'middle', 'bottom'].includes(val)
+			}
+		}
 	},
-  data() {
-    return {
-      visibleToast: true
-    }
-  },
+	data() {
+		return {
+			visibleToast: true
+		}
+	},
 	mounted() {
 		this.handleAutoClose()
 	},
 	methods: {
 		close() {
-      this.visibleToast = false
-      setTimeout(() => {
-        // 删除dom元素
-        this.$el.remove()
-        // 完全销毁一个实例
-        this.$destroy()
-      },400)
+			this.visibleToast = false
+			setTimeout(() => {
+				// 删除dom元素
+				this.$el.remove()
+				// 完全销毁一个实例
+				this.$destroy()
+			}, 400)
 		},
 		onClickClose() {
 			this.close()
@@ -87,47 +92,47 @@ export default {
 	// 取值：数字，数字乘以该元素的字体大小。计算值和指定值结果相同
 	line-height: 1.8;
 	background-color: pink;
-  &.slide-top-leave-active,
-  &.slide-bottom-leave-active {
-    transition: all .4s;
-  }
-  &.slide-top-leave-to {
-    opacity: 0;
-    transform: translate(-50%, -100%);
-  }
-  &.slide-bottom-leave-to {
-    opacity: 0;
-    transform: translate(-50%, 100%);
-  }
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, .3);
-  @keyframes slideTop {
-    0% {
-      transform: translate(-50%, -100%);
-    }
-    100% {
-      transform: translate(-50%, 0);
-    }
-  }
-  @keyframes slideBottom {
-    0% {
-      transform: translate(-50%,100%);
-    }
-    100% {
-      transform: translate(-50%,0);
-    }
-  }
-  &.position-top {
-    top: 10px;
-    animation: slideTop .4s;
-  }
-  &.position-middle {
-    top: 50%;
-    transform: translate(-50%,-50%);
-  }
-  &.position-bottom {
-    bottom: 10px;
-    animation: slideBottom .4s;
-  }
+	&.slide-top-leave-active,
+	&.slide-bottom-leave-active {
+		transition: all 0.4s;
+	}
+	&.slide-top-leave-to {
+		opacity: 0;
+		transform: translate(-50%, -100%);
+	}
+	&.slide-bottom-leave-to {
+		opacity: 0;
+		transform: translate(-50%, 100%);
+	}
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	@keyframes slideTop {
+		0% {
+			transform: translate(-50%, -100%);
+		}
+		100% {
+			transform: translate(-50%, 0);
+		}
+	}
+	@keyframes slideBottom {
+		0% {
+			transform: translate(-50%, 100%);
+		}
+		100% {
+			transform: translate(-50%, 0);
+		}
+	}
+	&.position-top {
+		top: 10px;
+		animation: slideTop 0.4s;
+	}
+	&.position-middle {
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+	&.position-bottom {
+		bottom: 10px;
+		animation: slideBottom 0.4s;
+	}
 	.content {
 		padding: 8px 16px;
 		word-break: break-all;
