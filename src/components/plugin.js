@@ -29,3 +29,9 @@ const createToast = (message, options, Vue) => {
 export default {
   install
 }
+
+// toast组件实现思路
+// 1. 如何调用生成toast的方法: 通过调用Vue实例对象上的方法(this.$message())
+// 2. 如何实现：
+//      a. 在构造函数原型上绑定$message方法：Vue.prototype.$message = function() {}
+//      b. 通过install方法进行方法定义,使用Vue.use()来使用插进
