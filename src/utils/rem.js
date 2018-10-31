@@ -8,7 +8,7 @@
   const setRem = () => {
     clearTimeout(timerId)
     const timerId = setTimeout(() => {
-      const {width} = html.getBoundingClientRect()
+      const { width } = html.getBoundingClientRect()
       if (!width) { return }
       html.style.fontSize = width / 7.5 + 'px'
     }, 100)

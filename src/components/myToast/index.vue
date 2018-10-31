@@ -85,6 +85,7 @@ export default {
 @toast-bg: #edf2fc;
 @toast-border: #ebeef5;
 @toast-text-color: #909399;
+@toast-border-radius: 0.02rem;
 @white: #fff;
 .my-toast {
   display: flex;
@@ -92,6 +93,7 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   border: 1px solid @toast-border;
+  border-radius: @toast-border-radius;
   color: @toast-text-color;
   // 由于可能写多行文字，这里内容高度不能写死
   min-height: 0.4rem;
@@ -111,7 +113,7 @@ export default {
     opacity: 0;
     transform: translate(-50%, 100%);
   }
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   @keyframes slideTop {
     0% {
       transform: translate(-50%, -100%);

@@ -44,10 +44,10 @@ export default {
     onSubmit(e) {
       const errorMsg = this.validatorFunc();
       if (errorMsg) {
-        this.$message(errorMsg, { autoClose: false });
+        this.$message(errorMsg);
         return;
       }
-      console.log("success");
+      this.$message("successs");
       // 发起请求，进行接口层面的校验
     }
   }
@@ -55,10 +55,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.input-wrapper {
-  padding: 10px;
-  input {
-    margin: 10px;
+.home {
+  .input-wrapper {
+    padding: 10px;
+    input {
+      margin: 10px;
+    }
   }
 }
 </style>
