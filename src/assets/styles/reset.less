@@ -50,12 +50,13 @@ textarea {
 // 这里设置的box-sizing:border-box;并不会被*:通用选择器覆盖掉
 html {
   box-sizing: border-box;
+  // 再点击元素的时候会有激活背景色,通过设置透明度为0来禁用
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 // 这里设置body的font-size是为了重置页面的字体大小，否则页面的字体大小都会是1rem,即50px
 body {
-  font-size: 14px;
-  // 不同浏览器默认的行高是不同的,mdn：line-height: normal;取决于用户代理。桌面浏览器（包括火狐浏览器）使用默认值，约为1.2
+  font-size: 14px; // 不同浏览器默认的行高是不同的,mdn：line-height: normal;取决于用户代理。桌面浏览器（包括火狐浏览器）使用默认值，约为1.2
   // 这取决于浏览器的font-family
   line-height: 1;
 }

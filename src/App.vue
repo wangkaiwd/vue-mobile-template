@@ -1,34 +1,28 @@
 <template>
   <div class="index" v-cloak>
-    <button @click="handleClick">click</button>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App",
-  computed: {},
-  components: {},
-  mounted() {
-    this.$api.element.fetchSeller().then(res => console.log(res));
-  },
-  methods: {
-    handleClick() {
-      this.$api.element.fetchSeller().then(res => {
-        console.log(res);
-      });
-    }
-  }
-};
+	name: 'App',
+	computed: {},
+	components: {},
+	mounted() {},
+	methods: {}
+}
 </script>
 
 <style lang="less" scoped>
 .index {
-  -webkit-overflow-scrolling: touch;
+	-webkit-overflow-scrolling: touch;
 }
 
 [v-cloak] {
-  display: none;
+	display: none;
 }
 </style>

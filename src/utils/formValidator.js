@@ -3,7 +3,11 @@ class FormValidator {
   cache = []
   add(value, rules, prefix) {
     if (this.rulesIsArray(value, rules, prefix)) return
-    this.ruleIsObject(rules, value, prefix)
+    if (this.ruleIsObject(rules, value, prefix)) return
+    const array = rules.split(':')
+    const tempMsg = () =>
+      validatorRules[array[0]](value, undefined, prefix, array[1])
+    this.cache.push(tempMsg)
   }
   start() {
     for (let i = 0, len = this.cache.length; i < len; i++) {
@@ -38,7 +42,6 @@ class FormValidator {
 const validatorRules = {
   // 内容是否为空
   isNonEmpty(value, errorMsg, prefix = '') {
-    console.log('object', prefix)
     let tip = errorMsg || `${prefix}不能为空`
     return value.trim() === '' ? tip : void 0
   },

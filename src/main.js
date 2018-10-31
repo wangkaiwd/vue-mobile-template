@@ -10,6 +10,9 @@ import BaseIcon from '@/components/myIcon'
 import { handlePromiseReject } from '@/utils/globalEvent'
 
 Vue.component('base-icon', BaseIcon)
+
+import Toast from 'components/plugin'
+Vue.use(Toast)
 handlePromiseReject()
 Vue.prototype.$api = Api
 
