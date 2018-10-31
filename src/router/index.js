@@ -6,7 +6,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    ...Testing
+    ...Testing, //测试模块
   ],
   // 切换到新路由后时，页面滚动到顶部 
   scrollBehavior() {
