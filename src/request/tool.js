@@ -1,5 +1,8 @@
 import instance from './axiosConfig'
-// 添加toast提示
+import Vue from 'vue'
+import Toast from '@/components/plugin'
+Vue.use(Toast)
+const vm = new Vue()
 /**
  * 提前定义接口路径，请求方法
  * @param url {String} 请求地址
@@ -10,7 +13,11 @@ import instance from './axiosConfig'
 export const ajaxFunc = (url, method = 'post') => (params = {}) => new Promise((resolve, reject) => {
   let value
   method.toLowerCase() === 'post' ? value = 'data' : value = 'params'
-  return instance({ url, method, [value]: params })
+  return instance({
+      url,
+      method,
+      [value]: params
+    })
     .then(res => resolve(res), err => reject(err))
 })
 /**
@@ -35,7 +42,7 @@ const codeMsg = {
  * @param code {Number} 后端返回的code
  */
 export const handleErrorCode = (code) => {
-  codeMsg[code] && alert(codeMsg[code]);
+  codeMsg[code] && vm.$message(codeMsg[code]);
 }
 
 /**
@@ -46,14 +53,26 @@ export const handleErrorCode = (code) => {
  * @param {Function} CancelToken 取消请求实例
  */
 export const delRepeatHttpRequest = (requestMap, config, qs, CancelToken) => {
-  const { url, method, data } = config
-  const keyString = qs.stringify(Object.assign({}, { url, method }, data));
+  const {
+    url,
+    method,
+    data
+  } = config
+  const keyString = qs.stringify(Object.assign({}, {
+    url,
+    method
+  }, data));
   if (requestMap.get(keyString)) {
     // 取消当前请求
     config.cancelToken = new CancelToken((cancel) => {
-      cancel({ type: 'cancelHttp', msg: 'Please slow down a little' });
+      cancel({
+        type: 'cancelHttp',
+        msg: 'Please slow down a little'
+      });
     });
   }
   requestMap.set(keyString, true);
-  Object.assign(config, { _keyString: keyString });
+  Object.assign(config, {
+    _keyString: keyString
+  });
 }

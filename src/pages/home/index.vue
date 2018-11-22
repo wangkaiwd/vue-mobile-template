@@ -6,9 +6,9 @@
     </router-link>
     <div class="input-wrapper">
       <form>
-        <input type="text" v-model="userName"><br/>
-        <input type="password" v-model="password"><br/>
-        <input type="number" v-model="checkCode">
+        <label for="">用户名</label><input type="text" v-model="userName"><br/>
+        <label for="">密码</label><input type="password" v-model="password"><br/>
+        <label for="">验证码</label><input type="number" v-model="checkCode">
         <button @click="onSubmit($event)">提交</button>
       </form>
     </div>
@@ -36,7 +36,7 @@ export default {
       validator.add(
         this.checkCode,
         [{ rule: "isNonEmpty" }, { rule: "maxLength:6" }],
-        "haha"
+        "验证码"
       );
       const errorMsg = validator.start();
       return errorMsg;

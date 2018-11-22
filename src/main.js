@@ -7,13 +7,15 @@ import '@/utils/rem.js'
 import '@/request/axiosConfig'
 import Api from '@/api'
 import BaseIcon from '@/components/myIcon'
-import { handlePromiseReject } from '@/utils/globalEvent'
+import {
+  handlePromiseReject
+} from '@/utils/globalEvent'
 
 Vue.component('base-icon', BaseIcon)
 
 import Toast from 'components/plugin'
 Vue.use(Toast)
-handlePromiseReject()
+handlePromiseReject() // 全局捕获错误的Promise
 Vue.prototype.$api = Api
 
 Vue.config.productionTip = false
@@ -21,6 +23,8 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
